@@ -133,6 +133,8 @@ export const brand = {
   tagline: "Invoicing for freelancers and small teams.",
   disclaimer: "Quillo is a fictional product made as a portfolio demo.",
   year: 2026,
+  /** Who made the demo, named in the copyright line as in the other portfolio projects. */
+  author: "Shakil",
 } as const;
 
 export const meta = {
@@ -641,7 +643,7 @@ export const footer = {
     },
   },
   backToTop: "Back to top",
-  copyright: `© ${brand.year} ${brand.name} · ${brand.disclaimer}`,
+  copyright: `© ${brand.year} ${brand.author} · ${brand.disclaimer}`,
 } as const;
 
 /* ------------------------------------------------------------------ */

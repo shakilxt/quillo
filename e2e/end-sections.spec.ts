@@ -119,7 +119,7 @@ test.describe("footer", () => {
     await page.goto("/");
     const footer = page.getByRole("contentinfo");
     await expect(footer).toContainText(
-      "© 2026 Quillo · Quillo is a fictional product made as a portfolio demo.",
+      "© 2026 Shakil · Quillo is a fictional product made as a portfolio demo.",
     );
     await expect(footer.getByRole("navigation", { name: "Footer" })).toBeVisible();
 
