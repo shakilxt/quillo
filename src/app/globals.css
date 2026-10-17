@@ -1,0 +1,370 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens (PLAN.md §4).
+ *
+ * The default Tailwind palette, radius and shadow scales are cleared, so only brand
+ * tokens exist. Contrast ratios (WCAG 2.x) are noted beside the tokens.
+ */
+@theme {
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* Surfaces */
+  --color-paper: #faf8f4; /* page background */
+  --color-surface: #ffffff; /* cards, mockups */
+  --color-line: #e7e3dc; /* decorative borders and dividers only */
+
+  /* Text. ink is also the dark-section background (paper on ink: 16.7:1). */
+  --color-ink: #0e1a1f; /* 16.7:1 on paper */
+  --color-ink-muted: #55636a; /* 5.9:1 on paper, 6.2:1 on white */
+  /* The plan's #8A979D measured 2.8:1 on paper, so text-level subtle is darkened. */
+  --color-ink-subtle: #66747a; /* 4.6:1 on paper, 4.8:1 on white */
+  --color-ink-faint: #8a979d; /* decoration only (icons, gridlines); 5.9:1 on ink */
+
+  /* Brand */
+  --color-primary: #0b6e69; /* 5.7:1 on paper; white on primary: 6.1:1 */
+  --color-primary-hover: #085a56; /* white on primary-hover: 8.1:1 */
+  --color-primary-soft: #e2f1ef; /* primary on primary-soft: 5.2:1 */
+
+  /* Accents. Mint is never text on paper (fills, and text on ink only: 11.3:1). */
+  --color-mint: #7fe0c4;
+  --color-amber: #f2b544; /* ink on amber: 9.7:1 */
+  --color-coral: #e8664f; /* ink on coral: 5.4:1; white on coral fails (3.3:1) */
+
+  /* Type scale. Fluid sizes interpolate linearly from 375px to 1440px wide. */
+  --text-display: clamp(2.75rem, 2.134rem + 2.629vw, 4.5rem); /* 44 → 72 */
+  --text-display--line-height: clamp(3rem, 2.384rem + 2.629vw, 4.75rem); /* 48 → 76 */
+  --text-display--letter-spacing: -0.03em;
+  --text-display--font-weight: 700;
+  --text-h2: clamp(2rem, 1.648rem + 1.502vw, 3rem); /* 32 → 48 */
+  --text-h2--line-height: clamp(2.375rem, 2.023rem + 1.502vw, 3.375rem); /* 38 → 54 */
+  --text-h2--letter-spacing: -0.02em;
+  --text-h2--font-weight: 700;
+  /* Deep-dive row titles: between h2 and h3, as a 22px h3 looks lost beside a large mockup. */
+  --text-title: clamp(1.75rem, 1.618rem + 0.563vw, 2.125rem); /* 28 → 34 */
+  --text-title--line-height: clamp(2.125rem, 1.993rem + 0.563vw, 2.5rem); /* 34 → 40 */
+  --text-title--letter-spacing: -0.02em;
+  --text-title--font-weight: 700;
+  --text-h3: 1.375rem; /* 22 */
+  --text-h3--line-height: 1.75rem; /* 28 */
+  --text-h3--font-weight: 600;
+  --text-lead: clamp(1.125rem, 1.081rem + 0.188vw, 1.25rem); /* 18 → 20 */
+  --text-lead--line-height: clamp(1.75rem, 1.706rem + 0.188vw, 1.875rem); /* 28 → 30 */
+  --text-body: 1rem;
+  --text-body--line-height: 1.625rem;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.25rem;
+  --text-small--font-weight: 500;
+  --text-eyebrow: 0.8125rem;
+  --text-eyebrow--line-height: 1rem;
+  --text-eyebrow--letter-spacing: 0.08em;
+  --text-eyebrow--font-weight: 600;
+
+  /* Content is 1200px wide; the container adds 40px of padding each side on desktop. */
+  --container-site: 80rem;
+
+  --radius-*: initial;
+  --radius-xs: 4px; /* tiny mockup details */
+  --radius-field: 8px; /* inputs, small chips */
+  --radius-card: 14px;
+  --radius-window: 20px; /* mockup windows */
+
+  --shadow-*: initial;
+  --shadow-card: 0 1px 2px rgb(14 26 31 / 0.04), 0 8px 24px rgb(14 26 31 / 0.06);
+  --shadow-float: 0 2px 4px rgb(14 26 31 / 0.04), 0 24px 64px -12px rgb(14 26 31 / 0.18);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* The logo strip's mobile marquee: one copy of the list scrolls out as the next scrolls in. */
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes marquee {
+    to {
+      translate: -50% 0;
+    }
+  }
+}
+
+/* Small screens with motion allowed: the logo strip scrolls. Otherwise it's a static row. */
+@custom-variant marquee {
+  @media (width < 48rem) and (prefers-reduced-motion: no-preference) {
+    @slot;
+  }
+}
+
+/* Pricing cards: styles for when the Monthly / Yearly switch is on Yearly (BillingToggle.tsx). */
+@custom-variant yearly (&:where([data-billing="yearly"] *));
+
+/* Font families come from next/font as CSS variables (see src/app/fonts.ts). */
+@theme inline {
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Section rhythm: 80px on a 375px screen up to 120px at 1440px. */
+@utility section-y {
+  padding-block: clamp(5rem, 4.12rem + 3.756vw, 7.5rem);
+}
+
+@layer base {
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Anchor jumps land below the sticky nav (72px) with a little air. */
+  html {
+    scroll-padding-top: 5.5rem;
+  }
+
+  /* The mobile menu and the phone-size chat sheet are modal <dialog>s; lock the page behind them. */
+  html:has(.mobile-menu[open]),
+  html:has(.chat-panel:modal) {
+    overflow: hidden;
+  }
+
+  body {
+    @apply bg-paper font-sans text-body text-ink-muted antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display text-ink;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Components that need more than utilities                            */
+/* ------------------------------------------------------------------ */
+
+@layer components {
+  /* Faint dot grid behind the hero only (PLAN.md §4.3), fading out towards the edges. */
+  .hero-dots {
+    background-image: radial-gradient(rgb(14 26 31 / 0.11) 1.1px, transparent 1.3px);
+    background-size: 22px 22px;
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 35%, black 30%, transparent 75%);
+  }
+
+  /* Final CTA backdrop: a teal glow from the top and a paper dot grid fading out below it. */
+  .cta-glow {
+    background: radial-gradient(ellipse 70% 60% at 50% 0%, rgb(11 110 105 / 0.5), transparent 70%);
+  }
+
+  .cta-dots {
+    background-image: radial-gradient(rgb(250 248 244 / 0.09) 1.1px, transparent 1.3px);
+    background-size: 22px 22px;
+    mask-image: radial-gradient(ellipse 60% 70% at 50% 20%, black 20%, transparent 70%);
+  }
+
+  /* "Log in" popover: anchored under its button (LoginPopover.tsx). */
+  .login-popover {
+    inset: auto;
+    margin: 0.5rem 0 0;
+    width: min(20rem, calc(100vw - 2.5rem));
+    position-area: bottom span-left;
+    position-try-fallbacks: flip-inline;
+  }
+
+  /* The chat box grows with its text, up to its max height, where browsers support it. */
+  .chat-input {
+    field-sizing: content;
+  }
+
+  /* The chat sheet covers the page itself, so its modal backdrop stays clear. */
+  .chat-panel::backdrop {
+    background: transparent;
+  }
+
+  /* Without anchor positioning, pin it under the nav on the right. */
+  @supports not (position-area: bottom) {
+    .login-popover {
+      inset: 4.75rem 1.25rem auto auto;
+      margin: 0;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Motion (PLAN.md §4.4). All of it is off under reduced motion.       */
+/* ------------------------------------------------------------------ */
+
+@property --count-thousands {
+  syntax: "<integer>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --count-units {
+  syntax: "<integer>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@counter-style count-pad-3 {
+  system: extends decimal;
+  pad: 3 "0";
+}
+
+@keyframes count-up {
+  from {
+    --count-thousands: 0;
+    --count-units: 0;
+  }
+}
+
+@keyframes drift {
+  50% {
+    translate: 0 -6px;
+  }
+}
+
+@keyframes price-in {
+  from {
+    opacity: 0;
+    translate: 0 4px;
+  }
+}
+
+@keyframes launcher-pulse {
+  from {
+    opacity: 0.55;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 1.35 1.6;
+  }
+}
+
+@keyframes typing {
+  0%,
+  60%,
+  100% {
+    translate: 0 0;
+    opacity: 0.5;
+  }
+  30% {
+    translate: 0 -3px;
+    opacity: 1;
+  }
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+
+/*
+ * Reveal on scroll (Reveal.tsx + RevealObserver.tsx): fade up 12px over 400ms, once.
+ * Hidden only when scripts can run to reveal it again; without them, content just shows.
+ */
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  [data-reveal] {
+    transition:
+      opacity 400ms var(--ease-out-soft) var(--reveal-delay, 0ms),
+      translate 400ms var(--ease-out-soft) var(--reveal-delay, 0ms);
+  }
+
+  [data-reveal]:not([data-revealed]) {
+    opacity: 0;
+    translate: 0 12px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Floating cards over the hero mockup: 6s, about 6px. */
+  .drift {
+    animation: drift 6s ease-in-out infinite;
+  }
+
+  /* A price fades in whenever the billing switch reveals it (display: none → inline restarts it). */
+  .price-swap {
+    animation: price-in 300ms var(--ease-out-soft);
+  }
+
+  /*
+   * FAQ answers slide open. Browsers without ::details-content or interpolate-size just snap open,
+   * which is fine.
+   */
+  .faq-item {
+    interpolate-size: allow-keywords;
+  }
+
+  .faq-item::details-content {
+    block-size: 0;
+    overflow-y: clip;
+    transition:
+      block-size 300ms var(--ease-out-soft),
+      content-visibility 300ms allow-discrete;
+  }
+
+  .faq-item[open]::details-content {
+    block-size: auto;
+  }
+
+  /* "Ask Quillo" sends out one soft ring, 3s after load, to say it's there. */
+  .chat-launcher::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--color-primary);
+    opacity: 0;
+    z-index: -1;
+    animation: launcher-pulse 1.2s var(--ease-out-soft) 3s 1 both;
+  }
+
+  /* The chat panel rises in when it opens. */
+  .chat-panel[open] {
+    transition:
+      opacity 200ms ease-out,
+      translate 300ms var(--ease-out-soft);
+
+    @starting-style {
+      opacity: 0;
+      translate: 0 12px;
+    }
+  }
+
+  .typing-dot {
+    animation: typing 1.2s ease-in-out infinite;
+  }
+
+  /* The headline swash draws itself in once. */
+  .swash path {
+    stroke-dasharray: 1;
+    animation: draw 900ms var(--ease-out-soft) 350ms both;
+  }
+
+  /*
+   * Revenue count-up (CountUpUsd.tsx). The real text stays in place but transparent, and an
+   * overlay of CSS counters counts up to the same figure. `/ ""` keeps the overlay silent.
+   */
+  .count-up {
+    position: relative;
+  }
+
+  .count-up-value {
+    color: transparent;
+  }
+
+  .count-up::after {
+    content: "$" counter(count-thousands) "," counter(count-units, count-pad-3) / "";
+    counter-reset: count-thousands var(--count-thousands) count-units var(--count-units);
+    position: absolute;
+    inset: 0;
+    color: var(--color-ink);
+    animation: count-up 1.4s var(--ease-out-soft) 300ms both;
+  }
+}

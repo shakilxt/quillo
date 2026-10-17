@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- The Quillo mark (components/ui/Logo.tsx): a "Q" whose tail is a quill nib, on a teal tile. -->
+  <rect width="32" height="32" rx="9" fill="#0b6e69"/>
+  <circle cx="15" cy="15" r="7.25" fill="none" stroke="#fff" stroke-width="3"/>
+  <path d="M17.6 17.6 L25.5 25.5 L22.4 19.6 Z" fill="#fff"/>
+  <path d="M17 17 L25.5 25.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+</svg>
