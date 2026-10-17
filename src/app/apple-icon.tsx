@@ -1,19 +1,27 @@
 import { ImageResponse } from "next/og";
-import { loadLogoMark } from "@/lib/og-assets";
+import { nibDataUri } from "@/lib/logo";
 
-// The home-screen icon for iOS, which needs a PNG. iOS rounds the corners itself, so the mark
-// sits on a full teal square (the same teal as its own tile, so its rounded corners disappear).
+// The home-screen icon for iOS, which needs a PNG: the favicon's white nib on teal. iOS rounds
+// the corners itself, so the tile here is a full square.
 
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
-// Read once at module scope, so the icon is rendered at build time (Cache Components).
-const logoMark = await loadLogoMark();
+const nib = nibDataUri("#ffffff");
 
 export default function AppleIcon() {
   return new ImageResponse(
-    <div style={{ width: "100%", height: "100%", display: "flex", backgroundColor: "#0b6e69" }}>
-      <img src={logoMark} width={180} height={180} alt="" />
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#0b6e69",
+      }}
+    >
+      <img src={nib} width={73} height={120} alt="" />
     </div>,
     size,
   );

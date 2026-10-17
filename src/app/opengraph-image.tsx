@@ -1,7 +1,8 @@
 import { ImageResponse } from "next/og";
 import { brand, hero, invoiceStatusLabels, mockups, type InvoiceStatus } from "@/data/product";
 import { formatUsd, percentChange } from "@/lib/money";
-import { loadLogoMark, loadOgFonts } from "@/lib/og-assets";
+import { nibDataUri } from "@/lib/logo";
+import { loadOgFonts } from "@/lib/og-assets";
 
 // The link preview (PLAN.md §7): the logo, the headline and a mini dashboard, in brand colours.
 // ImageResponse takes inline styles only (no Tailwind), so the brand colours are repeated here.
@@ -51,7 +52,8 @@ const { revenueCents, change, invoices } = figures();
 const maxPaid = Math.max(...months.map((month) => month.paidCents));
 
 // Read once at module scope, so the image is rendered at build time (Cache Components).
-const [fonts, logoMark] = await Promise.all([loadOgFonts(), loadLogoMark()]);
+const fonts = await loadOgFonts();
+const nib = nibDataUri(color.primary);
 
 export default function OpengraphImage() {
   return new ImageResponse(
@@ -78,8 +80,8 @@ export default function OpengraphImage() {
           padding: "0 0 0 80px",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <img src={logoMark} width={60} height={60} alt="" />
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <img src={nib} width={36} height={60} alt="" />
           <span style={{ fontFamily: display, fontSize: 44, letterSpacing: "-0.02em" }}>
             {brand.name}
           </span>

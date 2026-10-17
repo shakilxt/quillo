@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- The Quillo mark (components/ui/Logo.tsx): a "Q" whose tail is a quill nib, on a teal tile. -->
-  <rect width="32" height="32" rx="9" fill="#0b6e69"/>
-  <circle cx="15" cy="15" r="7.25" fill="none" stroke="#fff" stroke-width="3"/>
-  <path d="M17.6 17.6 L25.5 25.5 L22.4 19.6 Z" fill="#fff"/>
-  <path d="M17 17 L25.5 25.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+  <!-- The favicon: the Quillo nib (src/lib/logo.ts) in white on a teal tile. -->
+  <rect width="32" height="32" rx="7" fill="#0b6e69"/>
+  <svg x="6" y="4" width="20" height="24" viewBox="2 0.5 20 33">
+    <path fill="#fff" fill-rule="evenodd" d="M8.5 1H15.5Q17 1 17 2.5V7.4H7V2.5Q7 1 8.5 1Z M7 9H17L20 12C21.5 13.5 21.8 15.9 20.8 17.7L12 33L3.2 17.7C2.2 15.9 2.5 13.5 4 12Z M14.2 15.2A2.2 2.2 0 1 0 9.8 15.2A2.2 2.2 0 1 0 14.2 15.2Z M11.3 17.4H12.7V30.4H11.3Z"/>
+  </svg>
 </svg>

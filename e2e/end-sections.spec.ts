@@ -131,6 +131,28 @@ test.describe("footer", () => {
     expect(hrefs.filter((href) => !href.startsWith("#"))).toEqual([]);
   });
 
+  test("the newsletter form shows an error, then success, without sending anything", async ({
+    page,
+  }) => {
+    await page.goto("/");
+    const requests: string[] = [];
+    page.on("request", (request) => requests.push(request.url()));
+
+    const footer = page.getByRole("contentinfo");
+    const field = footer.getByRole("textbox", { name: "Email address" });
+    await field.scrollIntoViewIfNeeded();
+
+    await footer.getByRole("button", { name: "Subscribe" }).click();
+    await expect(footer.getByRole("alert")).toHaveText("Enter your email address.");
+
+    await field.fill("tom@joinery.works");
+    await page.keyboard.press("Enter");
+    await expect(footer.getByRole("status")).toHaveText(
+      "Subscribed! (Demo only, nothing was sent.)",
+    );
+    expect(requests).toEqual([]);
+  });
+
   test("Back to top returns to the top of the page", async ({ page }) => {
     await page.goto("/");
     await page.getByRole("link", { name: "Back to top" }).click();

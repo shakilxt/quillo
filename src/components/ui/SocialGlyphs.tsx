@@ -45,7 +45,7 @@ export function SocialGlyphs({ className }: { className?: string }) {
       {glyphs.map((glyph) => (
         <li
           key={glyph.name}
-          className="flex size-10 items-center justify-center rounded-full border border-paper/15 text-paper/60"
+          className="flex size-10 items-center justify-center rounded-full border border-line text-ink-subtle"
         >
           <svg
             viewBox="0 0 24 24"

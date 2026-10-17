@@ -22,7 +22,7 @@ export function HowItWorks() {
           tone="dark"
         />
 
-        {/* The <ol> carries the numbering for screen readers; the visible numbers are decoration. */}
+        {/* The <ol> carries the numbering for screen readers; the visible "Step 1" is decoration. */}
         <ol className="mx-auto mt-14 grid max-w-md gap-10 lg:mt-20 lg:max-w-none lg:grid-cols-3 lg:gap-8">
           {howItWorks.steps.map((step, i) => {
             const Icon = icons[step.icon];
@@ -42,16 +42,13 @@ export function HowItWorks() {
                     className="absolute top-16 -bottom-8 left-7 border-l border-dashed border-paper/25 lg:top-7 lg:right-[calc(-50%+0.25rem)] lg:bottom-auto lg:left-[calc(50%+2.25rem)] lg:border-t lg:border-l-0"
                   />
                 )}
-                <span className="relative flex size-14 shrink-0 items-center justify-center rounded-full border border-paper/15 bg-paper/5 text-mint">
+                <span className="flex size-14 shrink-0 items-center justify-center rounded-full border border-paper/15 bg-paper/5 text-mint">
                   <Icon aria-hidden="true" className="size-6" strokeWidth={1.75} />
-                  <span
-                    aria-hidden="true"
-                    className="absolute -top-1 -right-1 flex size-6 items-center justify-center rounded-full bg-mint text-xs font-bold text-ink"
-                  >
-                    {i + 1}
-                  </span>
                 </span>
                 <div className="flex flex-col gap-2 pt-1 lg:pt-0">
+                  <p aria-hidden="true" className="font-sans text-eyebrow text-mint uppercase">
+                    {howItWorks.stepLabel} {i + 1}
+                  </p>
                   <h3 className="text-h3 text-paper">{step.title}</h3>
                   <p className="text-pretty text-paper/75">{step.body}</p>
                 </div>

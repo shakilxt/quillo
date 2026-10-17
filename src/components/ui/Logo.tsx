@@ -1,32 +1,19 @@
 import { cx } from "@/lib/cx";
+import { NIB_PATH, NIB_VIEWBOX } from "@/lib/logo";
 
 interface LogoMarkProps {
-  className?: string;
+  /** Size and colour, e.g. `h-8 w-5 fill-primary`. */
+  className: string;
 }
 
 /**
- * The Quillo mark: a "Q" whose tail is a quill nib, on a teal tile. Decorative, so the
- * wordmark (or the link around it) carries the name. Also the source for icon.svg (Phase 7).
+ * The Quillo mark: a pen nib (lib/logo.ts). Decorative, so the wordmark (or the link around it)
+ * carries the name. The hole and slit are cut out, so it works on any background.
  */
 export function LogoMark({ className }: LogoMarkProps) {
   return (
-    <svg
-      viewBox="0 0 32 32"
-      aria-hidden="true"
-      focusable="false"
-      className={cx("size-8", className)}
-    >
-      <rect width="32" height="32" rx="9" className="fill-primary" />
-      <circle cx="15" cy="15" r="7.25" fill="none" stroke="white" strokeWidth="3" />
-      {/* The nib: a slim leaf shape running out of the bowl, with a slit down the middle. */}
-      <path d="M17.6 17.6 L25.5 25.5 L22.4 19.6 Z" fill="white" />
-      <path
-        d="M17 17 L25.5 25.5"
-        stroke="white"
-        strokeWidth="2.6"
-        strokeLinecap="round"
-        fill="none"
-      />
+    <svg viewBox={NIB_VIEWBOX} aria-hidden="true" focusable="false" className={className}>
+      <path fillRule="evenodd" d={NIB_PATH} />
     </svg>
   );
 }
@@ -34,20 +21,13 @@ export function LogoMark({ className }: LogoMarkProps) {
 interface LogoProps {
   name: string;
   className?: string;
-  /** `dark` sets the wordmark in paper for the ink footer. */
-  tone?: "light" | "dark";
 }
 
-export function Logo({ name, className, tone = "light" }: LogoProps) {
+export function Logo({ name, className }: LogoProps) {
   return (
-    <span className={cx("inline-flex items-center gap-2.5", className)}>
-      <LogoMark />
-      <span
-        className={cx(
-          "font-display text-[1.375rem] leading-none font-bold tracking-[-0.02em]",
-          tone === "dark" ? "text-paper" : "text-ink",
-        )}
-      >
+    <span className={cx("inline-flex items-center gap-2", className)}>
+      <LogoMark className="h-8 w-5 fill-primary" />
+      <span className="font-display text-[1.375rem] leading-none font-bold tracking-[-0.02em] text-ink">
         {name}
       </span>
     </span>

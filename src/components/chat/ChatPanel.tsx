@@ -189,7 +189,9 @@ export default function ChatPanel({ copy, open, onClosed }: ChatPanelProps) {
     >
       {/* A div, not <header>: inside a dialog a header would count as a second page banner. */}
       <div className="flex items-center gap-3 border-b border-line bg-surface py-3 pr-2 pl-4">
-        <LogoMark className="size-9 shrink-0" />
+        <span className="flex size-9 shrink-0 items-center justify-center rounded-field bg-primary">
+          <LogoMark className="h-6 w-3.5 fill-white" />
+        </span>
         <div className="min-w-0 flex-1">
           <h2 id={titleId} className="text-[1.0625rem] leading-6 font-semibold">
             {copy.title}

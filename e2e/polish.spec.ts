@@ -81,7 +81,7 @@ function focusIndicator(page: Page) {
             active.tagName,
           outline: style.outlineColor,
           boxShadow: style.boxShadow,
-          onInk: Boolean(active.closest("#how-it-works, #get-started, footer")),
+          onInk: Boolean(active.closest("#how-it-works, #get-started")),
           launcher: active.classList.contains("chat-launcher"),
         };
       }

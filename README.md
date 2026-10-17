@@ -42,7 +42,7 @@ All eight screenshots are in [`screenshots/`](screenshots):
   switch only flips which one shows, so there's no layout shift and the prices work without
   JavaScript.
 - **FAQ** as native `<details>` cards, with an "Ask our assistant" shortcut into the chat.
-- **Final call to action and footer**, with the demo disclaimer.
+- **Final call to action and footer**, with a demo newsletter form and the disclaimer.
 - **"Ask Quillo"**, the AI assistant (below).
 
 Every piece of copy, every price and every mockup figure lives in one typed file,

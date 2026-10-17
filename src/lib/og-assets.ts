@@ -2,8 +2,8 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import type { ImageResponse } from "next/og";
 
-// Files for the generated images (opengraph-image.tsx, apple-icon.tsx). They read these at module
-// scope, so both images are rendered at build time and the reads never run on a visitor's request.
+// Fonts for the generated share image (opengraph-image.tsx). It reads them at module scope, so the
+// image is rendered at build time and the reads never run on a visitor's request.
 
 type ImageFonts = NonNullable<NonNullable<ConstructorParameters<typeof ImageResponse>[1]>["fonts"]>;
 
@@ -24,10 +24,4 @@ export async function loadOgFonts(): Promise<ImageFonts> {
     { name: "Instrument Sans", data: instrumentMedium, weight: 500, style: "normal" },
     { name: "Instrument Sans", data: instrumentSemiBold, weight: 600, style: "normal" },
   ];
-}
-
-/** The favicon (app/icon.svg) as a data URI, so every image draws the mark from one file. */
-export async function loadLogoMark(): Promise<string> {
-  const svg = await readFile(join(process.cwd(), "src/app/icon.svg"));
-  return `data:image/svg+xml;base64,${svg.toString("base64")}`;
 }

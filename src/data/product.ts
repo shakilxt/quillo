@@ -416,6 +416,8 @@ export const howItWorks = {
   id: sectionIds.howItWorks,
   eyebrow: "How it works",
   title: "From first invoice to paid in three steps",
+  /** Shown as "Step 1" above each title (screen readers get the list's own numbering). */
+  stepLabel: "Step",
   steps: [
     {
       icon: "user-plus",
@@ -625,7 +627,19 @@ export const footer = {
       items: [{ label: "Privacy" }, { label: "Terms" }, { label: "Cookies" }],
     },
   ] satisfies readonly FooterColumn[],
+  about: `${brand.name} helps freelancers and small teams send invoices, take card payments and chase late clients, all in one place.`,
   navLabel: "Footer",
+  newsletter: {
+    title: "Newsletter",
+    intro: "Product news and invoicing tips, about once a month.",
+    form: {
+      ...emailForm,
+      placeholder: "Your email",
+      submit: "Subscribe",
+      note: "No spam. Unsubscribe any time.",
+      success: "Subscribed! (Demo only, nothing was sent.)",
+    },
+  },
   backToTop: "Back to top",
   copyright: `© ${brand.year} ${brand.name} · ${brand.disclaimer}`,
 } as const;

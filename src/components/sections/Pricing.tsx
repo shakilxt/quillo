@@ -51,19 +51,16 @@ function PlanCard({ plan }: { plan: Plan }) {
   return (
     <div
       className={cx(
-        "relative flex flex-1 flex-col rounded-card border bg-surface p-7 sm:p-8",
+        "flex flex-1 flex-col rounded-card border bg-surface p-7 sm:p-8",
         plan.highlighted
           ? "border-primary shadow-float ring-1 ring-primary lg:-my-4 lg:py-12"
           : "border-line shadow-card",
       )}
     >
-      {plan.highlighted && (
-        <Badge tone="amber" className="absolute -top-3 left-7 sm:left-8">
-          {pricing.popularBadge}
-        </Badge>
-      )}
-
-      <h3 className="text-h3">{plan.name}</h3>
+      <div className="flex items-center justify-between gap-3">
+        <h3 className="text-h3">{plan.name}</h3>
+        {plan.highlighted && <Badge tone="amber">{pricing.popularBadge}</Badge>}
+      </div>
       {/* Two lines held open at lg, so the prices and buttons line up across the cards. */}
       <p className="mt-2 text-pretty lg:min-h-13">{plan.tagline}</p>
 

@@ -7,7 +7,7 @@ const titleId = `${finalCta.id}-title`;
 
 /**
  * Final CTA (PLAN.md §5.10): the dark band every "Start free" button scrolls to, with the same
- * demo-only sign-up form as the hero. The footer carries on in ink below it.
+ * demo-only sign-up form as the hero.
  */
 export function FinalCta() {
   return (
