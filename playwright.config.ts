@@ -3,8 +3,12 @@ import { defineConfig, devices } from "@playwright/test";
 const PORT = Number(process.env.PORT ?? 3200);
 const baseURL = `http://127.0.0.1:${PORT}`;
 
+/** `npm run screenshots` sets this; otherwise the portfolio shots (PLAN.md §9) are skipped. */
+const screenshots = Boolean(process.env.SCREENSHOTS);
+
 export default defineConfig({
   testDir: "./e2e",
+  testIgnore: screenshots ? [] : ["screenshots.spec.ts"],
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 1 : 0,

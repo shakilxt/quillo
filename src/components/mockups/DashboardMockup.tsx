@@ -175,12 +175,13 @@ export function DashboardMockup({ label, className }: DashboardMockupProps) {
 
       {/*
         Floating notifications, set over the window's top and bottom edges so they never hide
-        the figures or the status pills. They drift gently unless reduced motion is on.
+        the figures or the status pills. The top one sits high enough to clear the title bar's
+        dots and title at every width. They drift gently unless reduced motion is on.
       */}
       <Toast
         icon={Check}
         iconClassName="bg-mint text-ink"
-        className="drift -top-6 -left-3 sm:-left-10 lg:-left-14"
+        className="drift -top-9 -left-3 sm:-left-10 lg:-left-14"
       >
         {dashboard.paidToast}
       </Toast>
