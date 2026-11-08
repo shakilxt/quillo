@@ -185,7 +185,7 @@ export default function ChatPanel({ copy, open, onClosed }: ChatPanelProps) {
           close();
         }
       }}
-      className="chat-panel fixed inset-0 z-50 m-0 h-dvh max-h-none w-full max-w-none flex-col overflow-hidden bg-paper text-ink-muted open:flex sm:inset-auto sm:right-6 sm:bottom-6 sm:h-[min(35rem,calc(100dvh-3rem))] sm:w-95 sm:rounded-window sm:border sm:border-line sm:shadow-float"
+      className="chat-panel fixed inset-0 z-50 m-0 h-dvh max-h-none w-full max-w-none flex-col overflow-hidden bg-paper text-ink-muted open:flex sm:inset-auto sm:right-6 sm:bottom-6 sm:h-[min(40rem,calc(100dvh-3rem))] sm:w-110 sm:rounded-window sm:border sm:border-line sm:shadow-float"
     >
       {/* A div, not <header>: inside a dialog a header would count as a second page banner. */}
       <div className="flex items-center gap-3 border-b border-line bg-surface py-3 pr-2 pl-4">
@@ -287,7 +287,7 @@ export default function ChatPanel({ copy, open, onClosed }: ChatPanelProps) {
             type="submit"
             aria-label={copy.send}
             disabled={busy || !draft.trim()}
-            className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-white transition-colors hover:bg-primary-hover disabled:pointer-events-none disabled:opacity-45 motion-reduce:transition-none"
+            className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-white transition-colors hover:bg-primary-hover disabled:pointer-events-none motion-reduce:transition-none"
           >
             <ArrowUp aria-hidden="true" className="size-4.5" strokeWidth={2.5} />
           </button>

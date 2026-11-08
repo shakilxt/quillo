@@ -49,7 +49,7 @@ test.describe("chat assistant", () => {
     await expect(panel(page)).toContainText("AI · answers questions about Quillo");
     await expect(conversation(page)).toContainText("Please don't share personal information.");
     await expect(panel(page)).toContainText(
-      "Demo assistant powered by Google Gemini. Answers can be wrong.",
+      "Demo AI powered by Gemini. May be wrong.",
     );
 
     await panel(page).getByRole("button", { name: "Pro vs Team?" }).click();

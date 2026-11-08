@@ -675,7 +675,7 @@ export const chat = {
   counterLabel: "characters",
   send: "Send",
   maxLength: MAX_QUESTION_LENGTH,
-  footerNote: "Demo assistant powered by Google Gemini. Answers can be wrong.",
+  footerNote: "Demo AI powered by Gemini. May be wrong.",
   errors: {
     rateLimited: "You've asked a lot of questions! Please try again in a few minutes.",
     offline: "The assistant is offline right now. Most answers are in the FAQ.",
